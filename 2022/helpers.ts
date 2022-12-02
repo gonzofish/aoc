@@ -21,7 +21,7 @@ export function loadInput(dir: string, test?: boolean) {
   const filename = `${test ? 'test_' : ''}input`;
   const filepath = path.resolve(dir, filename);
 
-  return fs.readFileSync(filepath, { encoding: 'utf8' });
+  return fs.readFileSync(filepath, { encoding: 'utf8' }).trim();
 }
 
 export function runMain(main: Function, mod: NodeModule) {
