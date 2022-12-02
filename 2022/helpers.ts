@@ -23,3 +23,9 @@ export function loadInput(dir: string, test?: boolean) {
 
   return fs.readFileSync(filepath, { encoding: 'utf8' });
 }
+
+export function runMain(main: Function, mod: NodeModule) {
+  if (require.main === mod) {
+    main();
+  }
+}
