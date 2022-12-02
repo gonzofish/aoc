@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 interface ValueFormatter<T> {
   (value: T): number;
 }
@@ -12,4 +15,11 @@ export function sum<T>(values: T[], formatValue: ValueFormatter<T> = formatDefau
 
 function formatDefault<T>(value: T) {
   return Number(value);
+}
+
+export function loadInput(dir: string, test?: boolean) {
+  const filename = `${test ? 'test_' : ''}input`;
+  const filepath = path.resolve(dir, filename);
+
+  return fs.readFileSync(filepath, { encoding: 'utf8' });
 }

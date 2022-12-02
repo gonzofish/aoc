@@ -1,8 +1,7 @@
-import fs from 'fs';
-import { sumInput } from './helpers';
+import { loadInput, sumInput } from '../helpers';
 
 function run() {
-  const input = fs.readFileSync('./input/01', { encoding: 'utf8' });
+  const input = loadInput(__dirname);
   const elfCalories = input.trim().split('\n\n');
   let maxCalories = 0;
 
