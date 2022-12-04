@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { PerformanceObserver, performance } from 'node:perf_hooks';
 import path from 'path';
 
 interface ValueFormatter<T> {
@@ -28,4 +29,16 @@ export function runMain(main: Function, mod: NodeModule) {
   if (require.main === mod) {
     main();
   }
+}
+
+export function measurePerf(fn: Function) {
+  const obs = new PerformanceObserver((items) => {
+    console.log('Took: %d ms', items.getEntries()[0].duration);
+    performance.clearMarks();
+  });
+  obs.observe({ entryTypes: ['measure'] });
+
+  performance.mark('Start');
+  fn();
+  performance.measure('Start to End', 'Start');
 }
