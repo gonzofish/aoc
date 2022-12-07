@@ -1,5 +1,5 @@
-import { loadInput, runMain } from "../helpers";
-import { Matchup, RoundResult, Shape } from "./types";
+import { loadInput, runMain } from '../helpers';
+import { Matchup, RoundResult, Shape } from './types';
 
 function run() {
   const input = loadInput(__dirname).split('\n');
@@ -14,21 +14,24 @@ function run() {
     Z: 6,
   };
   const plays: Record<RoundResult, Record<Shape, Shape>> = {
-    X: { // lose
+    X: {
+      // lose
       A: 'C',
       B: 'A',
       C: 'B',
     },
-    Y: { // draw
+    Y: {
+      // draw
       A: 'A',
       B: 'B',
       C: 'C',
     },
-    Z: { // win
+    Z: {
+      // win
       A: 'B',
       B: 'C',
       C: 'A',
-    }
+    },
   };
   let total = 0;
 

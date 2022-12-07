@@ -1,4 +1,4 @@
-import { Stack } from "./types";
+import { Stack } from './types';
 
 export function setupStacks(stackDiagram: string) {
   const stacks: Stack[] = [];
@@ -23,11 +23,16 @@ export function setupStacks(stackDiagram: string) {
   return stacks;
 }
 
-export function moveCrates(stacks: Stack[], moves: string, moveGroup?: boolean) {
+export function moveCrates(
+  stacks: Stack[],
+  moves: string,
+  moveGroup?: boolean
+) {
   let newStacks = [...stacks];
 
   for (const move of moves.split('\n')) {
-    const [numCrates, fromStackRaw, toStackRaw] = move.replace(/(move|from|to)\s/g, '')
+    const [numCrates, fromStackRaw, toStackRaw] = move
+      .replace(/(move|from|to)\s/g, '')
       .split(' ')
       .map((value) => parseInt(value, 10));
     const fromStack = fromStackRaw - 1;
@@ -47,6 +52,5 @@ export function moveCrates(stacks: Stack[], moves: string, moveGroup?: boolean) 
 }
 
 export function getCrateTops(stacks: Stack[]) {
-  return stacks.map((stack) => stack[stack.length - 1])
-    .join('');
+  return stacks.map((stack) => stack[stack.length - 1]).join('');
 }

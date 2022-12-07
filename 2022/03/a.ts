@@ -1,5 +1,5 @@
-import { loadInput, measurePerf, runMain, sum } from "../helpers";
-import { POINTS_LOOKUP } from "./constants";
+import { loadInput, measurePerf, runMain, sum } from '../helpers';
+import { POINTS_LOOKUP } from './constants';
 
 function run() {
   const input = loadInput(__dirname).split('\n');

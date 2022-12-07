@@ -1,5 +1,5 @@
-import { loadInput, measurePerf, runMain } from "../helpers";
-import { CheckRangeContains, RangeBounds } from "./types";
+import { loadInput, measurePerf, runMain } from '../helpers';
+import { CheckRangeContains, RangeBounds } from './types';
 
 export function getRanges(rawSections: string) {
   const sections = rawSections.split(',');
@@ -18,8 +18,9 @@ export function getRanges(rawSections: string) {
 
 export function checkOverlapRanges(
   [range1, range2]: RangeBounds[],
-  checkContainsRange: CheckRangeContains,
+  checkContainsRange: CheckRangeContains
 ) {
-  return checkContainsRange(range1, range2)
-    || checkContainsRange(range2, range1);
+  return (
+    checkContainsRange(range1, range2) || checkContainsRange(range2, range1)
+  );
 }

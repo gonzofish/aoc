@@ -1,5 +1,5 @@
-import { loadInput, measurePerf, runMain } from "../helpers";
-import { checkOverlapRanges, getRanges } from "./common";
+import { loadInput, measurePerf, runMain } from '../helpers';
+import { checkOverlapRanges, getRanges } from './common';
 
 type RangeBounds = [number, number];
 
@@ -17,8 +17,7 @@ function run() {
 }
 
 function checkContainsRange(range1: RangeBounds, range2: RangeBounds) {
-  return range1[0] <= range2[0]
-    && range1[1] >= range2[1];
+  return range1[0] <= range2[0] && range1[1] >= range2[1];
 }
 
 measurePerf(() => runMain(run, module));

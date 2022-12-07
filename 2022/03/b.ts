@@ -1,5 +1,5 @@
-import { loadInput, measurePerf, runMain } from "../helpers";
-import { POINTS_LOOKUP } from "./constants";
+import { loadInput, measurePerf, runMain } from '../helpers';
+import { POINTS_LOOKUP } from './constants';
 
 const GROUP_LENGTH = 3;
 
@@ -11,7 +11,9 @@ function run() {
     const commonItem = getCommonItem(input.slice(i, i + GROUP_LENGTH));
 
     if (commonItem === null || !POINTS_LOOKUP[commonItem]) {
-      throw Error(`Could not find known common item in sacks ${i} - ${i + GROUP_LENGTH}`);
+      throw Error(
+        `Could not find known common item in sacks ${i} - ${i + GROUP_LENGTH}`
+      );
     }
 
     total += POINTS_LOOKUP[commonItem];
