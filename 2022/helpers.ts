@@ -10,7 +10,10 @@ export function sumInput(input: string) {
   return sum(input.split('\n'), (value: string) => parseInt(value, 10));
 }
 
-export function sum<T>(values: T[], formatValue: ValueFormatter<T> = formatDefault) {
+export function sum<T>(
+  values: T[],
+  formatValue: ValueFormatter<T> = formatDefault
+) {
   return values.reduce((total, value) => total + formatValue(value), 0);
 }
 
@@ -19,7 +22,13 @@ function formatDefault<T>(value: T) {
 }
 
 export function loadInput(dir: string, test?: boolean) {
-  const filename = `${test ? 'test_' : ''}input`;
+  let filename = 'input';
+
+  if (test) {
+    console.log('⚠️ Using test data!');
+    filename = `test_${filename}`;
+  }
+
   const filepath = path.resolve(dir, filename);
 
   return fs.readFileSync(filepath, { encoding: 'utf8' }).trimEnd();
