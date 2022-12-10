@@ -1,4 +1,4 @@
-import { loadInput, runMain } from '../helpers';
+import { loadInput, measurePerf, runMain } from '../helpers';
 
 const CHDIR = 'cd';
 const LIST = 'ls';
@@ -14,52 +14,60 @@ type Directory = {
 };
 
 function run() {
-  const input = loadInput(__dirname).split('\n');
+  const input = loadInput(__dirname, true).split('\n');
   const machine = createDir('');
   let current: Directory = machine;
-  let [line, ...otherLines] = input;
+  let [line, ...remainingLines] = input;
 
   while (line) {
     const match = line.match(commandRegex);
 
     if (match && match[2] === 'cd') {
-      // cd
-      if (match[3] === '..') {
-        if (!current.parent) {
-          throw Error('No parent?!');
-        }
-
-        current.parent.size += current.size;
-        current = current.parent;
-      } else {
-        const dir = createDir(match[3], current);
-        current.children.push(dir);
-        current = dir;
-      }
+      current = changeDirectory(current, match[3]);
     } else if (match && match[1] === 'ls') {
-      // ls
-      let [listLine, ...otherListLines] = otherLines;
+      const listing = readListing(remainingLines);
 
-      while (listLine && !listLine.match(commandRegex)) {
-        const fileMatch = listLine.match(/^(\d+)\s+.+$/);
-
-        if (fileMatch) {
-          current.size += parseInt(fileMatch[1], 10);
-        }
-
-        [listLine, ...otherListLines] = otherListLines;
-      }
-
-      otherLines = [listLine, ...otherListLines];
+      ({ remainingLines } = listing);
+      current.size = current.size + listing.size;
     } else {
-      console.info(match);
       throw Error('Cannot understand command');
     }
 
-    [line, ...otherLines] = otherLines;
+    [line, ...remainingLines] = remainingLines;
   }
 
   console.info(findSizedDirs(machine.children, 100_000));
+}
+
+// WARNING: this function will mutate `current`
+function changeDirectory(current: Directory, label: string) {
+  let next = current;
+
+  if (label === '..') {
+    next = moveUpDirectory(current);
+  } else {
+    next = moveIntoDir(current, label);
+  }
+
+  return next;
+}
+
+function moveUpDirectory(current: Directory) {
+  if (!current.parent) {
+    throw Error('No parent?!');
+  }
+
+  current.parent.size = current.parent.size + current.size;
+
+  return current.parent;
+}
+
+function moveIntoDir(current: Directory, label: string) {
+  const dir = createDir(label, current);
+
+  current.children.push(dir);
+
+  return dir;
 }
 
 function createDir(label: string, parent?: Directory): Directory {
@@ -68,6 +76,26 @@ function createDir(label: string, parent?: Directory): Directory {
     label,
     parent,
     size: 0,
+  };
+}
+
+function readListing(lines: string[]) {
+  let [listLine, ...otherListLines] = lines;
+  let size = 0;
+
+  while (listLine && !listLine.match(commandRegex)) {
+    const fileMatch = listLine.match(/^(\d+)\s+.+$/);
+
+    if (fileMatch) {
+      size += parseInt(fileMatch[1], 10);
+    }
+
+    [listLine, ...otherListLines] = otherListLines;
+  }
+
+  return {
+    remainingLines: [listLine, ...otherListLines],
+    size,
   };
 }
 
@@ -88,4 +116,4 @@ function findSizedDirs(dirs: Directory[], maxSize: number) {
   return total;
 }
 
-runMain(run, module);
+measurePerf(() => runMain(run, module));
