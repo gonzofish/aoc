@@ -21,7 +21,14 @@ function formatDefault<T>(value: T) {
   return Number(value);
 }
 
-export function loadInput(dir: string, test?: boolean) {
+export function loadInput() {
+  const dir = require.main?.path;
+
+  if (!dir) {
+    throw Error('Could not identify a a main path to get input from!');
+  }
+
+  const test = process.argv.slice(2).includes('test');
   let filename = 'input';
 
   if (test) {

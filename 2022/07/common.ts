@@ -3,8 +3,8 @@ import { Directory } from './types';
 
 const commandRegex = /^\$\s+((cd)\s*(.+)|(ls))\s*$/;
 
-export function constructDirs(test?: boolean): Directory {
-  const input = loadInput(__dirname, test).split('\n');
+export function constructDirs(): Directory {
+  const input = loadInput().split('\n');
   const machine = createDir('');
   let current: Directory = machine;
   let [line, ...remainingLines] = input;

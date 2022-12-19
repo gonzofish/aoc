@@ -1,7 +1,7 @@
 import { loadInput, measurePerf } from '../helpers';
 
 function run() {
-  const input = loadInput(__dirname)
+  const input = loadInput()
     .split('\n')
     .map((row) => row.split('').map((value) => parseInt(value, 10)));
   const lastRowIndex = input.length - 1;

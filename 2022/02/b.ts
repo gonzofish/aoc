@@ -2,7 +2,7 @@ import { loadInput, runMain } from '../helpers';
 import { Matchup, RoundResult, Shape } from './types';
 
 function run() {
-  const input = loadInput(__dirname).split('\n');
+  const input = loadInput().split('\n');
   const shapePoints: Record<Shape, number> = {
     A: 1, // rock
     B: 2, // paper

@@ -2,7 +2,7 @@ import { loadInput, measurePerf, runMain, sum } from '../helpers';
 import { POINTS_LOOKUP } from './constants';
 
 function run() {
-  const input = loadInput(__dirname).split('\n');
+  const input = loadInput().split('\n');
   let total = 0;
 
   for (const sacks of input) {

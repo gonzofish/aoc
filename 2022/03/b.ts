@@ -4,7 +4,7 @@ import { POINTS_LOOKUP } from './constants';
 const GROUP_LENGTH = 3;
 
 function run() {
-  const input = loadInput(__dirname).split('\n');
+  const input = loadInput().split('\n');
   let total = 0;
 
   for (let i = 0; i < input.length; i += GROUP_LENGTH) {

@@ -4,7 +4,7 @@ import { checkOverlapRanges, getRanges } from './common';
 type RangeBounds = [number, number];
 
 function run() {
-  const input = loadInput(__dirname).split('\n');
+  const input = loadInput().split('\n');
   let total = 0;
 
   for (const pair of input) {

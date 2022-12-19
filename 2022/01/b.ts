@@ -2,7 +2,7 @@ import fs from 'fs';
 import { loadInput, sum, sumInput } from '../helpers';
 
 function run() {
-  const input = loadInput(__dirname, true);
+  const input = loadInput();
   const elfCalories = input.trim().split('\n\n');
   let top3 = [0, 0, 0];
 

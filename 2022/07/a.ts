@@ -3,7 +3,7 @@ import { constructDirs } from './common';
 import { Directory } from './types';
 
 function run() {
-  const machine = constructDirs(true);
+  const machine = constructDirs();
 
   console.info(findSizedDirs(machine.children, 100_000));
 }
